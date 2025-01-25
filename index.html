@@ -69,6 +69,137 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-web6" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/25/web6/" class="article-date">
+  <time class="dt-published" datetime="2025-01-25T08:02:59.000Z" itemprop="datePublished">2025-01-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/25/web6/">web6</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>攻防世界       warmup<br>打开题目是一个表情包查看页面源代码</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--source.php-->
+    
+<pre><code>&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg&quot; /&gt;&lt;/body&gt;
+</code></pre>
+</html>
+发现source.php文件，查看该文件http://61.147.171.105:55228/source.php发现PHP代码
+<?php
+    highlight_file(__FILE__);
+    class emmm
+    {
+        public static function checkFile(&$page)
+        {
+            $whitelist = ["source"=>"source.php","hint"=>"hint.php"];
+            if (! isset($page) || !is_string($page)) {
+                echo "you can't see it";
+                return false;
+            }
+
+<pre><code>        if (in_array($page, $whitelist)) &#123;
+            return true;
+        &#125;
+
+        $_page = mb_substr(
+            $page,
+            0,
+            mb_strpos($page . &#39;?&#39;, &#39;?&#39;)
+        );
+        if (in_array($_page, $whitelist)) &#123;
+            return true;
+        &#125;
+
+        $_page = urldecode($page);
+        $_page = mb_substr(
+            $_page,
+            0,
+            mb_strpos($_page . &#39;?&#39;, &#39;?&#39;)
+        );
+        if (in_array($_page, $whitelist)) &#123;
+            return true;
+        &#125;
+        echo &quot;you can&#39;t see it&quot;;
+        return false;
+    &#125;
+&#125;
+
+if (! empty($_REQUEST[&#39;file&#39;])
+    &amp;&amp; is_string($_REQUEST[&#39;file&#39;])
+    &amp;&amp; emmm::checkFile($_REQUEST[&#39;file&#39;])
+) &#123;
+    include $_REQUEST[&#39;file&#39;];
+    exit;
+&#125; else &#123;
+    echo &quot;&lt;br&gt;&lt;img src=\&quot;https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\&quot; /&gt;&quot;;
+&#125;  
+</code></pre>
+<p>?&gt;<br>代码功能概述<br>这段 PHP 代码实现了一个文件包含功能，用户可以通过$_REQUEST数组传入file参数来请求包含指定的文件。但代码对用户传入的file参数进行了严格的检查，只有当file参数符合白名单规则时，才会包含该文件，否则会显示一张图片。<br>highlight_file(<strong>FILE</strong>);<br>这行代码会将当前 PHP 文件的源代码以高亮的形式显示在页面上，主要用于调试或展示代码。<br>class emmm<br>{<br>    public static function checkFile(&amp;$page)<br>    {<br>        $whitelist &#x3D; [“source”&#x3D;&gt;”source.php”,”hint”&#x3D;&gt;”hint.php”];<br>        if (! isset($page) || !is_string($page)) {<br>            echo “you can’t see it”;<br>            return false;<br>        }</p>
+<pre><code>    if (in_array($page, $whitelist)) &#123;
+        return true;
+    &#125;
+
+    $_page = mb_substr(
+        $page,
+        0,
+        mb_strpos($page . &#39;?&#39;, &#39;?&#39;)
+    );
+    if (in_array($_page, $whitelist)) &#123;
+        return true;
+    &#125;
+
+    $_page = urldecode($page);
+    $_page = mb_substr(
+        $_page,
+        0,
+        mb_strpos($_page . &#39;?&#39;, &#39;?&#39;)
+    );
+    if (in_array($_page, $whitelist)) &#123;
+        return true;
+    &#125;
+    echo &quot;you can&#39;t see it&quot;;
+    return false;
+&#125;
+</code></pre>
+<p>}<br>白名单设置：$whitelist数组定义了允许包含的文件列表，只有source.php和hint.php是被允许的。<br>参数检查：首先检查$page是否存在且为字符串类型，如果不满足条件，则输出错误信息并返回false。<br>直接匹配：检查$page是否直接存在于白名单中，如果是则返回true。<br>去除查询字符串：使用mb_substr和mb_strpos函数去除$page中的查询字符串（即?后面的部分），然后检查处理后的字符串是否在白名单中，如果是则返回true。<br>URL 解码后匹配：对$page进行 URL 解码，然后再次去除查询字符串，检查处理后的字符串是否在白名单中，如果是则返回true。<br>不匹配处理：如果以上条件都不满足，则输出错误信息并返回false。<br>php<br>if (! empty($_REQUEST[‘file’])<br>    &amp;&amp; is_string($_REQUEST[‘file’])<br>    &amp;&amp; emmm::checkFile($_REQUEST[‘file’])<br>) {<br>    include $_REQUEST[‘file’];<br>    exit;<br>} else {<br>    echo “<br>&lt;img src&#x3D;&quot;<a target="_blank" rel="noopener" href="https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg/">https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\</a>“ &#x2F;&gt;”;<br>}<br>条件判断：检查$_REQUEST[‘file’]是否不为空、是否为字符串类型，并且通过emmm::checkFile方法的检查。<br>文件包含：如果条件满足，则包含$_REQUEST[‘file’]指定的文件，并终止脚本执行。<br>默认显示：如果条件不满足，则显示一张图片。<br>我门发现了新文件hint.php，查看新文件<a target="_blank" rel="noopener" href="http://61.147.171.105:55228/hint.php">http://61.147.171.105:55228/hint.php</a><br>flag not here, and flag in ffffllllaaaagggg<br>提示我们flag路径<br>构造source.php?file&#x3D;hint.php%3f..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;ffffllllaaaagggg来通过检查进入白名单<br>%3f是为了绕过他的一次url编码，<br>…&#x2F;…&#x2F;…&#x2F;是为了一层一层往父目录搜寻该文件，flag四次也暗示了四层<br>flag{25e7bce6005c4e0c983fb97297ac6e5a}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/25/web6/" data-id="cm6bxpgch00007cmfbl3mc9dg" data-title="web6" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="new-web5" class="h-entry article article-type-new" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/24/web5/" class="article-date">
@@ -521,6 +652,10 @@ if($_GET[id] == "admin")
       <ul>
         
           <li>
+            <a href="/2025/01/25/web6/">web6</a>
+          </li>
+        
+          <li>
             <a href="/2025/01/24/web5/">web5</a>
           </li>
         
@@ -534,10 +669,6 @@ if($_GET[id] == "admin")
         
           <li>
             <a href="/2025/01/16/PHP2/">PHP2</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/14/wed1/">wed1</a>
           </li>
         
       </ul>
